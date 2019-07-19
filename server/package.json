@@ -1,0 +1,23 @@
+{
+  "name": "gogrello-sever",
+  "version": "1.0.0",
+  "description": "node sever side for gogrello",
+  "main": "index.js",
+  "scripts": {
+    "test": "test-sever"
+  },
+  "keywords": [
+    "node",
+    "gogrello",
+    "mongodb",
+    "express"
+  ],
+  "author": "William Winberg",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "faker": "^4.1.0",
+    "mongoose": "^5.6.5"
+  }
+}
