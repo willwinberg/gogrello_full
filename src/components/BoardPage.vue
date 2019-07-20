@@ -2,15 +2,22 @@
   <div class="board-page-main">
     <template v-if="board">
       <div class="board-title">
-        <h2>{{ board.title }}</h2>
+        <editable
+          v-slot:default="slotProps"
+          :field-value="board.title"
+          @editable-submit="editableSubmitted"
+        >
+          <h2>{{ slotProps.inputText }}</h2>
+        </editable>
       </div>
       <div class="board-lists">
         <div class="board-lists-inner">
-          <list
+          <board-list
             v-for="(list, i) in lists"
             :key="list._id"
             :index="i"
-            :list-prop="list"/>
+            :list-prop="list"
+          />
         </div>
       </div>
     </template>
@@ -19,10 +26,13 @@
 
 <script>
   import boardService from "../services/board.service";
-  import List from "./List";
+  import BoardList from "./BoardList";
+  import Editable from "./Editable";
+
   export default {
     components: {
-
+      BoardList,
+      Editable
     },
     data() {
       return {
@@ -42,7 +52,14 @@
       );
     },
     methods: {
-
+      editableSubmitted(inputText) {
+        if (inputText === this.board.title) {
+          return;
+        }
+        boardService.update(this.board._id, inputText).then(() => {
+          this.board.title = inputText;
+        })
+      }
     },
   };
 </script>

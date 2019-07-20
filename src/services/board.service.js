@@ -6,5 +6,13 @@ export default {
   },
   findById(boardId) {
     return axios.get("/api/boards/" + boardId).then(res => res.data)
+  },
+  update(boardId, title) {
+    return axios.put(
+      "/api/boards/" + boardId,
+      {
+        title: title
+      }
+    ).then(res => res.data)
   }
 }
