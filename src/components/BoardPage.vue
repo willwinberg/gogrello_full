@@ -12,6 +12,11 @@
       </div>
       <div class="board-lists">
         <div class="board-lists-inner">
+          <addable
+            class="add-new-list"
+            @addable-submit="addableSubmit">
+            <div>Add list</div>
+          </addable>
           <board-list
             v-for="(list, i) in lists"
             :key="list._id"
@@ -28,11 +33,14 @@
   import boardService from "../services/board.service";
   import BoardList from "./BoardList";
   import Editable from "./Editable";
+  import listService from "../services/list.service";
+  import Addable from "./Addable";
 
   export default {
     components: {
       BoardList,
-      Editable
+      Editable,
+      Addable
     },
     data() {
       return {
@@ -60,6 +68,14 @@
           this.board.title = inputText;
         })
       }
+    },
+    addableSubmit(listTitle) {
+      if (!listTitle || listTitle.length === 0) {
+        return;
+      }
+      listService.create(this.board._id, listTitle).then((newList) => {
+        this.board.lists.push(newList)
+      })
     },
   };
 </script>
