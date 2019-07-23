@@ -7,15 +7,15 @@ module.exports = {
     })
   },
   getById (req, res) {
-    Board.findOne({_id: req.params.boardId})
+    Board.findOne({ _id: req.params.boardId })
       .populate({
-        path: "lists",
-        select: ["title"],
-        model: "List",
+        path: 'lists',
+        select: ['title'],
+        model: 'List',
         populate: {
-          path: "cards",
-          select: ["title", "body"],
-          model: "Card"
+          path: 'cards',
+          select: ['title', 'body'],
+          model: 'Card'
         }
       })
       .exec((err, board) => {
@@ -23,8 +23,21 @@ module.exports = {
       })
   },
   update (req, res) {
-    Board.findByIdAndUpdate(req.params.boardId, {title: req.body.title}, (err, board) => {
+    Board.findByIdAndUpdate(req.params.boardId, { title: req.body.title }, (err, board) => {
       this._handleResponse(err, board, res)
+    })
+  },
+  updateListsOrder (req, res) {
+    Board.findById(req.body.boardId, (err, board) => {
+      if (err) {
+        res.status(400).end()
+        return
+      }
+
+      board.lists = req.body.listIds
+      board.save((err, savedBoard) => {
+        this._handleResponse(err, savedBoard, res)
+      })
     })
   },
   _handleResponse (err, data, res) {
