@@ -29,12 +29,9 @@ export default {
   methods: {
     onTitleClick () {
       this.$set(this, 'isAdding', true)
-      setTimeout(
-        (() => {
-          this.$refs.addableField.focus()
-        }),
-        200
-      )
+      setTimeout(() => {
+        this.$refs.addableField.focus()
+      }, 200)
     },
     onBlur () {
       this.$set(this, 'isAdding', false)

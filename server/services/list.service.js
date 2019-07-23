@@ -9,10 +9,10 @@ module.exports = {
       }
 
       if (!board) {
-        return this._handleResponse("Error", null, res)
+        return this._handleResponse('Error', null, res)
       }
 
-      List.create({title: req.body.title}, (err, card) => {
+      List.create({ title: req.body.title }, (err, card) => {
         board.lists.push(card._id)
         board.save(() => {
           this._handleResponse(err, card, res)

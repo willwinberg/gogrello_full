@@ -8,14 +8,14 @@ module.exports = {
   seedData () {
     Board.countDocuments((err, count) => {
       if (count > 0) {
-        return;
+        return
       }
 
       this.createBoards()
     })
   },
   createBoards () {
-    let boards = [];
+    let boards = []
 
     Array.from(Array(config.numberOfBoards)).forEach(() => {
       boards.push({
@@ -33,10 +33,10 @@ module.exports = {
     })
   },
   createLists (board) {
-    let lists = [];
+    let lists = []
     Array.from(Array(config.numberOfListsPerBoard)).forEach((val, index) => {
       lists.push({
-        title: index + faker.lorem.sentence(3),
+        title: index + faker.lorem.sentence(3)
       })
     })
 
@@ -55,12 +55,12 @@ module.exports = {
     })
   },
   createCards (list) {
-    let cards = [];
+    let cards = []
 
     Array.from(Array(config.numberOfCardsPerList)).forEach(() => {
       cards.push({
         title: faker.lorem.sentence(5),
-        body: faker.lorem.paragraph(1),
+        body: faker.lorem.paragraph(1)
       })
     })
 
